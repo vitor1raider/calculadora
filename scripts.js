@@ -2,11 +2,11 @@ function inserirValor(value) {
   let inserido = document.getElementById('display').value += value;
   console.log(inserido)
 
-  let expressao = document.getElementById('historico');
-  expressao.innerHTML = inserido;
+  let expressaoNum = document.getElementById('expressaoNum');
+  expressaoNum.innerHTML = inserido + " =";
 
   // Atualizar o valor atual no localStorage
-  localStorage.setItem('currentDisplay', inserido);
+  localStorage.setItem('valorDisplay', inserido);
   inserido.innerHTML = '';
 }
 
@@ -26,27 +26,49 @@ function calcular() {
 
   // Exibir o resultado no display
   document.getElementById('display').value = resultado;
+
+  exibirHistorico();
 }
 
 // Exibe todo o histórico do localStorage
 function exibirHistorico() {
-  let historico = document.getElementById('historico');
   let historicoSalvo = localStorage.getItem('historico');
   
-  // let guardarSection = document.querySelector('section');
-  // guardarSection.innerHTML = historicoSalvo;
+  // Exibir o histórico na lista
+  let listaExp = document.getElementById('listaExp');
+  listaExp.innerHTML = ''; // Limpa o conteúdo atual
+  
+  if (historicoSalvo) {
+    let historicoArray = historicoSalvo.split('<br>'); // Divide os cálculos salvos
+    historicoArray.forEach(calculo => {
+      let li = document.createElement('li');
+      li.textContent = calculo; // Adiciona o texto de cada cálculo
+      listaExp.appendChild(li);
+    });
+  } else {
+    let li = document.createElement('li');
+    li.textContent = 'Nenhum histórico disponível';
+    listaExp.appendChild(li);
+  }
 
-  // Exibir o histórico armazenado na div
-  historico.innerHTML = historicoSalvo ? historicoSalvo : 'Nenhum histórico disponível';
+  // Lixeira para apagar o histórico, só aparece ao clicar no icon-historico
+  let iconLimpar = document.querySelector('.icon-limpar');
+  iconLimpar.style.display = 'flex';
 }
 
 // Limpa o resultado do display
 function limparResultado() {
   display.value = '';
+  expressaoNum.innerHTML = '';
 }
 
 // Limpa o histórico do localStorage
 function limparHistorico() {
+  let listaExp = document.getElementById('listaExp');
+  listaExp.innerHTML = ''
   localStorage.removeItem('historico');
-  historico.innerHTML = '';
+
+  // Lixeira para apagar o histórico, some ao clicar
+  let iconLimpar = document.querySelector('.icon-limpar');
+  iconLimpar.style.display = 'none';
 }
