@@ -1,9 +1,5 @@
 function inserirValor(value) {
   let inserido = document.getElementById('display').value += value;
-  console.log(inserido)
-
-  let expressaoNum = document.getElementById('expressaoNum');
-  expressaoNum.innerHTML = inserido + " =";
 
   // Atualizar o valor atual no localStorage
   localStorage.setItem('valorDisplay', inserido);
@@ -27,7 +23,10 @@ function calcular() {
   // Exibir o resultado no display
   document.getElementById('display').value = resultado;
 
-  exibirHistorico();
+  let expressaoNum = document.getElementById('expressaoNum');
+  if(resultado.value != ''){
+    expressaoNum.innerHTML = localStorage.getItem('valorDisplay') + " =";
+  }
 }
 
 // Exibe todo o histórico do localStorage
@@ -50,6 +49,10 @@ function exibirHistorico() {
     li.textContent = 'Nenhum histórico disponível';
     listaExp.appendChild(li);
   }
+
+  // Recebe os históricos salvos e armazena na lista de expressões
+  //listaExp.innerHTML = historicoSalvo;
+
 
   // Lixeira para apagar o histórico, só aparece ao clicar no icon-historico
   let iconLimpar = document.querySelector('.icon-limpar');
