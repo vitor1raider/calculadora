@@ -1,4 +1,5 @@
 function inserirValor(value) {
+  // Coleta o valor inserido no display
   let inserido = document.getElementById('display').value += value;
 
   // Atualizar o valor atual no localStorage
@@ -8,10 +9,10 @@ function inserirValor(value) {
 
 function calcular() {
   var exibeValor = document.getElementById('display').value;
-  var resultado = eval(exibeValor); /* eval() é usada para avaliar a expressão matemática dentro da string displayValue */
+  var resultado = eval(exibeValor); // utiliza eval() para a expressão matemática dentro da string valorDisplay 
   
   // Salvar o cálculo realizado no histórico
-  let historicoAnterior = localStorage.getItem('historico') || ''; // Pegue o histórico atual ou uma string vazia
+  let historicoAnterior = localStorage.getItem('historico') || ''; 
   let calculo = `${exibeValor} = ${resultado}`;
   
   // Adicionar o cálculo ao histórico
@@ -23,6 +24,7 @@ function calcular() {
   // Exibir o resultado no display
   document.getElementById('display').value = resultado;
 
+  // Exibe a expressão matemática inserida no display
   let expressaoNum = document.getElementById('expressaoNum');
   if(resultado.value != ''){
     expressaoNum.innerHTML = localStorage.getItem('valorDisplay') + " =";
@@ -35,8 +37,9 @@ function exibirHistorico() {
   
   // Exibir o histórico na lista
   let listaExp = document.getElementById('listaExp');
-  listaExp.innerHTML = ''; // Limpa o conteúdo atual
+  listaExp.innerHTML = ''; 
   
+  // Se houver histórico salvo será inserido numa lista
   if (historicoSalvo) {
     let historicoArray = historicoSalvo.split('<br>'); // Divide os cálculos salvos
     historicoArray.forEach(calculo => {
@@ -44,19 +47,18 @@ function exibirHistorico() {
       li.textContent = calculo; // Adiciona o texto de cada cálculo
       listaExp.appendChild(li);
     });
-  } else {
+  } else { // Se não tiver nenhum cálculo
     let li = document.createElement('li');
-    li.textContent = 'Nenhum histórico disponível';
+    li.textContent = 'Ainda não há histórico.';
     listaExp.appendChild(li);
   }
-
-  // Recebe os históricos salvos e armazena na lista de expressões
-  //listaExp.innerHTML = historicoSalvo;
-
 
   // Lixeira para apagar o histórico, só aparece ao clicar no icon-historico
   let iconLimpar = document.querySelector('.icon-limpar');
   iconLimpar.style.display = 'flex';
+
+  document.querySelector('.display').style.opacity = 0.5;
+  document.querySelector('.img-icon-calc').style.opacity = 0.5;
 }
 
 // Limpa o resultado do display
@@ -71,7 +73,10 @@ function limparHistorico() {
   listaExp.innerHTML = ''
   localStorage.removeItem('historico');
 
-  // Lixeira para apagar o histórico, some ao clicar
+  // Lixeira para apagar o histórico; some a lixeira/histórico ao clicar no icon-limpar
   let iconLimpar = document.querySelector('.icon-limpar');
   iconLimpar.style.display = 'none';
+
+  document.querySelector('.display').removeAttribute("style");
+  document.querySelector('.img-icon-calc').removeAttribute("style");
 }
