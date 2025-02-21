@@ -48,16 +48,34 @@
   font-size: 50px;
 }
 
+#listaExp{
+  position: absolute;
+  max-width: 320px;
+  max-height: 258px;
+  height: 258px;
+  background-color: #2f2d2d;
+}
+
+.listaExp{
+  list-style: none;
+}
+
+li{
+  color: white;
+  list-style: none;
+  width: 320px;
+}
+
 section{
   display: grid;
-  grid-template-columns: repeat(4, 100px);
+  grid-template-columns: repeat(4, 78px);
   padding: 4px;
 }
 
 input[type='text'] {
   background-color: #202020;
   border: none;
-  font-size: 32px;
+  font-size: 25px;
   text-align: right;
   color: white;
 }
@@ -71,6 +89,7 @@ input[type='button'] {
   outline: none;
   background-color: #353535;
   font-size: 20px;
+  font-weight: 100;
   border: 1px solid #252222;
   color: white;  
   height: 50px;
@@ -101,12 +120,5 @@ input[type='button'] {
   }
 }
 
-.listaExp{
-  list-style: none;
-}
 
-li{
-  color: white;
-  list-style: none;
-}
 
